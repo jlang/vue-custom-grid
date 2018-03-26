@@ -12,12 +12,12 @@
           <ul style="height:100%;padding-left:20px;">
             <li style="float:left;display:block;padding:5px;background-color:blue;color:#fff;border-radius:5px;"><input v-model="settingsCB" type="checkbox" @click="showSettings();">
               <span>Column Settings</span></li>
-              <li style="float:left;display:block;padding:5px" v-for="column in allColumns">
-                <span>
-                  <button @click="refresh()">{{column}}
-                    <input type="checkbox" :value="column" v-model="selectedCols" :checked="true">
-                  </button>
-                </span>
+              <li style="float:left;display:block;" v-for="column in allColumns">
+
+                  <div id="ck-button"><label>
+                    <input type="checkbox" :value="column" v-model="selectedCols" :checked="true"><span>{{column}}</span></label>
+                  </div>
+                
             </li>
           </ul>
         </td>
