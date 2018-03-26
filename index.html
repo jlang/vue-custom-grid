@@ -1,0 +1,67 @@
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+<link rel="stylesheet" type="text/css" href="style.css">
+
+<!-- component template -->
+
+
+<script type="text/x-template" id="grid-template">
+  <div>
+    <table>
+      <tr>
+        <td align="left" style="padding:0px;">
+          <ul style="height:100%;padding-left:20px;">
+            <li style="float:left;display:block;padding:5px;background-color:blue;color:#fff;border-radius:5px;"><input v-model="settingsCB" type="checkbox" @click="showSettings();">
+              <span>Column Settings</span></li>
+              <li style="float:left;display:block;padding:5px" v-for="column in allColumns">
+                <span>
+                  <button @click="refresh()">{{column}}
+                    <input type="checkbox" :value="column" v-model="selectedCols" :checked="true">
+                  </button>
+                </span>
+            </li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <table class="chartTable">
+            <thead>
+              <tr>
+                <th v-for="key in columns"
+                  @click="sortBy(key)"
+                  :class="{ active: sortKey == key }">
+                  {{ key | capitalize }}
+                  <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
+                  </span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="entry in filteredData">
+                <td v-for="key in columns">
+                  {{entry[key]}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </div>
+</script>
+
+<div id="chart">
+  <form id="search">
+    Search <input name="query" v-model="searchQuery">
+  </form>
+      
+  <demo-grid
+      :data="gridData"
+      :columns="gridColumns"
+      :all-columns="allColumns"
+      :filter-key="searchQuery">
+  </demo-grid>
+
+</div>
+
+<script src="main.js"></script>
